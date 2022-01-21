@@ -1,4 +1,4 @@
-# InformationProject
+
 Pentru a porni aplicatia trebuie deschis fisierul "index.html" in browser.
 Apoi din Command prompt se urmeaza comenzile urmatoare:
 1.cd "locatia folderului" de exemplu: .../InformationProject
