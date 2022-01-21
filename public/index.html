@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Cmpatible" content="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Informatii despre locatie</title>
+  </head>
+  <body>
+    <h1 style="text-align: center;">Introducere informatii</h1>
+    <div class="link">
+      <a href="/">Pagina principala</a> |
+      <a href="info.html">Coordonate</a>
+    </div>
+
+    <div class="space">
+      <p class="loc">latitudine: <span id="latitudine">&deg;</span></p>
+      <p class="loc">longitudine: <span id="longitudine">&deg;</span></p>
+    </div>
+    <p>
+      The weather in <span id="name"></span> is
+      <span id="description"></span> with temperature of
+      <span id="feels_like"></span>°C.
+    </p>
+
+    <div class="link">
+      <input id="inputt" value="" />
+      <button id="coordonate">Introducere</button>
+    </div>
+
+    <script>
+      const buton = document.getElementById("coordonate");
+      //Cand butonul de introducere a datelor este apasat este preluata longitudinea si latitudinea
+      buton.addEventListener("click", async (event) => {
+        const Data_input = document.getElementById("inputt").value;
+        const Data = { latitudine, longitudine, Data_input };
+        const Fetch_Options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify(Data),
+        };
+        //functia face cerere catre server pentru a trimite date catre pagina web incarcata 
+        //formatul lor este JSON --------------------
+        const response = await fetch("/api", Fetch_Options);
+        const Json_Data = await response.json();
+        //statusul request-uluis
+        console.log(response.status);
+        console.log(response.statusText);
+        console.log(Json_Data);
+      });
+      //se verifica daca geolocatia este compatibila cu browser-ul utilizat
+      if ("geolocation" in navigator) {
+        console.log("Geolocatia poate fi utilizata!");
+        navigator.geolocation.getCurrentPosition(async (position) => {
+          //preluam  longitudinea si latitudinea
+          latitudine = position.coords.latitude;
+          longitudine = position.coords.longitude;
+          document.getElementById("latitudine").textContent = latitudine;
+          document.getElementById("longitudine").textContent = longitudine;
+
+          const api_info = `weather/${latitudine},${longitudine}`;
+          //const api_info=`weather`;
+          const response = await fetch(api_info);
+          const Json_api = await response.json();
+          document.getElementById("description").textContent =
+            Json_api.weather[0].description;
+          document.getElementById("feels_like").textContent =
+            ((Json_api.main.feels_like - 32) / 1, 8);
+          document.getElementById("name").textContent = Json_api.name;
+          console.log(Json_api);
+        });
+      } else {
+        console.log("Geolocatia nu este compatibila cu acest browser!");
+      }
+    </script>
+  </body>
+</html>

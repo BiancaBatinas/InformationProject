@@ -1,0 +1,22 @@
+{
+  "name": "informationproject",
+  "version": "1.0.0",
+  "description": "Proiect RC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tema",
+    "proiect",
+    "rc"
+  ],
+  "author": "Batinas Bianca- Ioana",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2",
+    "nedb": "^1.8.0",
+    "node-fetch": "^2.6.7",
+    "type": "module"
+  }
+}

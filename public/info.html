@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Cmpatible" content="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="style2.css" />
+    <title>Informatii despre locatie</title>
+  </head>
+  <body>
+
+
+    <h1 style="text-align: center;">Coordonate salvate</h1>
+
+    <div>
+      <a href="/">Pagina principala</a> |
+      <a href="info.html">Coordonate</a>
+    </div>
+    
+    <script>
+      getData();
+      async function getData() {
+        const response = await fetch("/api");
+        const Data = await response.json();
+        console.log(response.status);
+        console.log(response.statusText);
+        //se parcurge baza de date
+        let x = 1;
+        for (item of Data) {
+          const root = document.createElement("div");
+
+          const mood = document.createElement("div");
+          mood.textContent = `mood: ${item.mood}`;
+          const geo = document.createElement("div");
+          const date = document.createElement("div");
+          date.style.cssText = "margin-left: 30rem;";
+          mood.textContent = `${item.latitudine}°, ${item.longitudine}°`;
+          //transformam ora  in string
+          const dateString = new Date(item.Time).toLocaleString();
+          date.textContent = dateString;
+
+          root.append(mood, geo, date);
+
+          document.body.append(root);
+          if (x % 2 == 0) {
+            root.style.cssText =
+              "margin_top: 2rem;display: flex; margin: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #ccc;  font-size: 1.5rem; font-weight: bold;";
+            x++;
+          } else {
+            root.style.cssText =
+              "margin_top: 2rem;display: flex; margin: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #ccc;  font-size: 1.5rem; font-weight: bold; background-color:#E0E0E0";
+            x++;
+          }
+
+          console.log(root);
+        }
+        console.log(Data);
+      }
+    </script>
+  </body>
+</html>
