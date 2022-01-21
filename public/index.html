@@ -40,11 +40,8 @@
           headers: {
             "Content-Type": "application/json",
           },
-
           body: JSON.stringify(Data),
         };
-        //functia face cerere catre server pentru a trimite date catre pagina web incarcata 
-        //formatul lor este JSON --------------------
         const response = await fetch("/api", Fetch_Options);
         const Json_Data = await response.json();
         //statusul request-uluis
@@ -72,6 +69,8 @@
             ((Json_api.main.feels_like - 32) / 1, 8);
           document.getElementById("name").textContent = Json_api.name;
           console.log(Json_api);
+          console.log(response.status);
+          console.log(response.statusText);
         });
       } else {
         console.log("Geolocatia nu este compatibila cu acest browser!");

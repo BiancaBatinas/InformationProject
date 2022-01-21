@@ -1,17 +1,17 @@
+const { response } = require("express");
 const express = require("express");
 const app = express();
-const Datastore = require("nedb"); //initializare baza de date
+const Datastore = require("nedb");
 var fetch = require("node-fetch");
 const Port = process.env.PORT || 3000;
 app.listen(Port, () => {
   console.log(`listening at ${Port}`);
 }); //ne conectam la portul 3000. Serverul este functional
-//index.js este codul pentru server---- trebuie sters la sfarsit
 //pagina html din folderul 'public' este trimisa catre server
 app.use(express.static("public")); //construim un folder public care contine paginile html ale proiectului
 app.use(express.json({ limit: "1mb" })); //limita pachetului de date jason preluat
 
-const database = new Datastore("store.db"); //creare baza de date
+const database = new Datastore("store.db"); 
 database.loadDatabase();
 
 //preluam toate obiectele din baza de date
@@ -26,7 +26,7 @@ app.get("/api", (request, response) => {
   
 });
 
-//folosim metoda POST pentru a trimite datele catre server
+//folosim metoda POST  pentru a trimite informatii catre client 
 app.post("/api", (request, response) => {
   console.log("request");
   const Data = request.body;
