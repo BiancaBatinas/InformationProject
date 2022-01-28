@@ -66,7 +66,7 @@
           document.getElementById("description").textContent =
             Json_api.weather[0].description;
           document.getElementById("feels_like").textContent =
-            ((Json_api.main.feels_like - 32) / 1, 8);
+            ((Json_api.main.feels_like - 273).toFixed(1));
           document.getElementById("name").textContent = Json_api.name;
           console.log(Json_api);
           console.log(response.status);
